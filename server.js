@@ -23,13 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // CORS and authentication on all routes
-app.all('/*', [
-  require('./app/filter/cors.filter'),
-  require('./app/filter/authentication.filter'),
-]);
+app.all('/*', require('./api/filter/cors.filter'));
+app.all('/advice/*', require('./api/filter/authentication.filter'))
 
 // Define the specific routes
-app.use('/advice', require('./app/router/advice.router.js'))
+app.use('/advice', require('./api/router/advice.router.js'))
+app.get('/swagger.yaml', function(req, res) {
+  res.sendFile('api/swagger.yaml', { root: __dirname });
+});
 
 // Start the server
 var port = process.env.PORT || 3000;

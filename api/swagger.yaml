@@ -1,0 +1,92 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: eNutri advice service
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+securityDefinitions:
+  threeScaleToken:
+    type: apiKey
+    in: header
+    name: 3scale-proxy-secret-token
+paths:
+  /advice/alternatives:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: advice
+    post:
+      security:
+      - threeScaleToken: []
+      parameters:
+        - name: Diet
+          in: body
+          description: Current diet
+          required: true
+          schema:
+            $ref: '#/definitions/Diet'
+      description: Gives advice based on the current diet.
+      # used as the method name of the controller
+      operationId: alternatives
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Alternatives"
+        # responses may fall through to errors
+        "401":
+          description: Authentication missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Authentication invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  Diet:
+    required:
+      - diet
+    properties:
+      diet:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+  Alternatives:
+    required:
+      - alternatives
+    properties:
+      alternatives:
+        type: array
+        items:
+          type: string
+  ErrorResponse:
+    description: Response whenever errors occur
+    required:
+      - message
+    properties:
+      code:
+        type: string
+      message:
+        type: string

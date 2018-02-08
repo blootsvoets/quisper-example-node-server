@@ -21,3 +21,5 @@ The secret token is a variable in `app/filter/authentication.filter.js`, with de
 ## Modifying
 
 Modify `server.js` to change the server setup. Current routes are defined in `app/router` and filters are defined in `app/filter`.
+
+Edit the `api/swagger.yaml` Swagger definition to reflect the new API.
