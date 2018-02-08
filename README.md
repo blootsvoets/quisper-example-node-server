@@ -7,7 +7,7 @@ Simple node server to convert Javascript logic to a webservice. It uses the [Exp
 Install a recent version of NodeJS. Then run
 ```shell
 npm install
-npm serve
+npm start
 ```
 to start the server.
 
