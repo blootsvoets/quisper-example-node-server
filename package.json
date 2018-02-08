@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "example-node-server",
+  "version": "0.1.0",
+  "description": "Example NodeJS/Express server",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blootsvoets/quisper-example-node-server.git"
+  },
+  "author": "Joris Borgdorff <joris@thehyve.nl>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/blootsvoets/quisper-example-node-server/issues"
+  },
+  "homepage": "https://github.com/blootsvoets/quisper-example-node-server#readme"
+}
