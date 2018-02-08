@@ -14,24 +14,16 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-var express    = require('express');
-var app        = express();
-var bodyParser = require('body-parser');
-
-// support URL-encoded and JSON requests 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// CORS and authentication on all routes
-app.all('/*', [
-  require('./app/filter/cors.filter'),
-  require('./app/filter/authentication.filter'),
-]);
-
-// Define the specific routes
-app.use('/advice', require('./app/router/advice.router.js'))
-
-// Start the server
-var port = process.env.PORT || 3000;
-app.listen(port);
-console.log('listening on http://localhost:' + port);
+// Allow API to be used from other servers
+module.exports = function(req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // Set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,3scale-proxy-secret-token');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+}
