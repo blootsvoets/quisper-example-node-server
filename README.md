@@ -16,10 +16,10 @@ If you have curl installed, you can now make requests to the server as follows:
 ```
 curl -H "3scale-proxy-secret-token: $TOKEN" -H 'Content-Type: application/json' localhost:3000/advice/alternatives -d '{"diet": [{"name": "meat"}]}'
 ```
-The secret token is a variable in `app/filter/authentication.filter.js`, with default 'my-secret'. The port number can be modified with the `PORT` environment variable.
+The secret token is a variable in `api/filter/authentication.filter.js`, with default 'my-secret'. The port number can be modified with the `PORT` environment variable.
 
 ## Modifying
 
-Modify `server.js` to change the server setup. Current routes are defined in `app/router` and filters are defined in `app/filter`.
+Modify `server.js` to change the server setup. Current routes are defined in `api/router` and filters are defined in `api/filter`.
 
 Edit the `api/swagger.yaml` Swagger definition to reflect the new API.
